@@ -27,7 +27,6 @@ const getAllContacts = async (req, res, next) => {
 
 const getSingleContact = async (req, res, next) => {
   const userId = new ObjectId(req.params.id);
-  console.log(userId);
   const result = await mongodb
     .getDb()
     .db()
