@@ -1,0 +1,4 @@
+//Returns all contacts
+GET http://localhost:8080/contacts
+###
+GET http://localhost:8080/contacts/63c196d754e3da788f60e754
