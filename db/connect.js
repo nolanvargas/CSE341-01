@@ -1,4 +1,4 @@
-// This is a package that helps us use eniormental variables 'env'
+// This is a package that helps us use environmental variables 'env'
 const dotenv = require("dotenv");
 
 // Load the environment variables from the .env file into 'process.env'.
@@ -47,7 +47,4 @@ const getDb = () => {
   return _db;
 };
 
-module.exports = {
-  initDb,
-  getDb,
-};
+module.exports = { initDb, getDb };
