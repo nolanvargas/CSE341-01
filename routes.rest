@@ -2,3 +2,24 @@
 GET http://localhost:8080/contacts
 ###
 GET http://localhost:8080/contacts/63c196d754e3da788f60e754
+###
+POST http://localhost:8080/contacts/ HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Testwoman",
+    "lastName": "Womantest",
+    "email": "test.woman@outlook.com",
+    "color": "blue",
+    "birthday": "11/3/1963"
+}
+###
+PUT http://localhost:8080/contacts/63c9ebdac44e7fc698bc0807 HTTP/1.1
+content-type: application/json
+
+{
+    "color": "yellow"
+}
+
+###
+DELETE http://localhost:8080/contacts/63c9ebdac44e7fc698bc0807 HTTP/1.1
