@@ -4,9 +4,6 @@ const express = require("express");
 // This will be used to parse the body of the request
 const bodyParser = require("body-parser");
 
-// Grab the database client object here
-const MongoClient = require("mongodb").MongoClient;
-
 // Our own module with the code to set it up ready to be called
 const mongodb = require("./db/connect");
 
@@ -19,8 +16,24 @@ const port = process.env.PORT || 8080;
 // Initialize express
 const app = express();
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
+// Options for swagger explorer
+var options = {
+  explorer: true,
+};
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, options)
+);
+
 // Pass in middleware, that will be used before every request
 app
+  // Swagger document
+  .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   .use(bodyParser.json())
   .use((req, res, next) => {
     // This is for cors ??? not really sure actually
@@ -33,7 +46,7 @@ app
 
 // Initialize our client by calling this function? method?
 // Pass a callback function to start the server
-mongodb.initDb((err, mongodb) => {
+mongodb.initDb((err) => {
   if (err) {
     console.log(err);
   } else {
