@@ -24,25 +24,27 @@ var options = {
   explorer: true,
 };
 
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, options)
-);
-
 // Pass in middleware, that will be used before every request
 app
   // Swagger document
   .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   .use(bodyParser.json())
   .use((req, res, next) => {
-    // This is for cors ??? not really sure actually
     res.setHeader("Access-Control-Allow-Origin", "*");
-    // Also not sure about this
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Z-Key"
+    );
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
     next();
   })
   // Make our routes available for use
-  .use("/contacts", contactsRoutes);
+  .use("/contacts", contactsRoutes)
+  .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Initialize our client by calling this function? method?
 // Pass a callback function to start the server
